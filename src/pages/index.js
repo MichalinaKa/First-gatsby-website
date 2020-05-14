@@ -2,6 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import styled from "styled-components"
 import Button from "../components/Button/Button"
+import Image from "gatsby-image"
 
 const ContentWrapper = styled.div`
   width: 65%;
@@ -13,10 +14,10 @@ const ContentWrapper = styled.div`
   height: calc(100vh- 80px);
 
   h1 {
-    font-size: 85px;
+    font-size: 80px;
     padding-top: 100px;
     margin: 0;
-    width: 40%;
+    width: 70%;
     line-height: 0.9;
   }
   p {
@@ -25,8 +26,8 @@ const ContentWrapper = styled.div`
   }
 `
 
-const ImageWrapper = styled.img`
-  position: absolute;
+const StyledImage = styled(Image)`
+  position: absolute !important;
   top: 0;
   right: 0;
   width: 35%;
@@ -37,34 +38,28 @@ const ImageWrapper = styled.img`
 const IndexPage = ({ data }) => (
   <>
     <ContentWrapper>
-      <h1>Your new space </h1>
+      <h1>Designing your space </h1>
       <p>
         While artist work from real to the abstract, architects must work from
         the real.
       </p>
       <Button>estimate project</Button>
     </ContentWrapper>
-    <ImageWrapper
-      src={data.file.childImageSharp.fluid.src}
-      sizes={data.file.childImageSharp.fluid.sizes}
-      srcSet={data.file.childImageSharp.fluid.srcSet}
-    />
+    <StyledImage fluid={data.file.childImageSharp.fluid} />
   </>
 )
 
 export const query = graphql`
   {
-    file(name: { eq: "interior" }) {
+    file(name: { eq: "interior" }, childImageSharp: { fixed: {} }) {
       childImageSharp {
         fluid(
-          maxWidth: 800
+          maxWidth: 1000
           maxHeight: 1200
           quality: 100
           duotone: { highlight: "#f00e2e", shadow: "#192550" }
         ) {
-          src
-          srcSet
-          sizes
+          ...GatsbyImageSharpFluid_tracedSVG
         }
       }
     }
