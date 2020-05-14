@@ -10,8 +10,8 @@ html{
 }
 body{
     margin: 0;
-    padding: 80px 80px 0;
-    font-family: 'Montserrat'
+    padding: 120px 80px 0;
+    font-family: 'Montserrat';
 }
 button{
     padding: 0;
