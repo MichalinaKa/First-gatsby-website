@@ -44,14 +44,29 @@ const IndexPage = ({ data }) => (
       </p>
       <Button>estimate project</Button>
     </ContentWrapper>
-    <ImageWrapper src={data.file.publicURL} />
+    <ImageWrapper
+      src={data.file.childImageSharp.fluid.src}
+      sizes={data.file.childImageSharp.fluid.sizes}
+      srcSet={data.file.childImageSharp.fluid.srcSet}
+    />
   </>
 )
 
 export const query = graphql`
   {
     file(name: { eq: "interior" }) {
-      publicURL
+      childImageSharp {
+        fluid(
+          maxWidth: 800
+          maxHeight: 1200
+          quality: 100
+          duotone: { highlight: "#f00e2e", shadow: "#192550" }
+        ) {
+          src
+          srcSet
+          sizes
+        }
+      }
     }
   }
 `
